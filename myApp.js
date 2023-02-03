@@ -9,6 +9,20 @@ let mongoose = require( 'mongoose' );
 // Conectar Base de Datos
 mongoose.connect( mySecret , { useNewUrlParser: true, useUnifiedTopology: true });
 
+// Creando un Esquema 
+const personSchema = new mongoose.Schema({
+  name : {
+    type : String,
+    required : true
+  },
+  age : {
+    type : Number    
+  },
+  favoriteFoods : {
+    type : [ String ]
+  }
+});
+
 let Person;
 
 const createAndSavePerson = (done) => {
