@@ -1,5 +1,13 @@
+// Variable de entorno
+const mySecret = process.env['MONGO_URI'];
+
 require('dotenv').config();
-let mongosee = require( 'mongoose' );
+
+// Importar mongoose
+let mongoose = require( 'mongoose' );
+
+// Conectar Base de Datos
+mongoose.connect( mySecret , { useNewUrlParser: true, useUnifiedTopology: true });
 
 let Person;
 
