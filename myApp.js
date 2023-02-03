@@ -23,11 +23,29 @@ const personSchema = new mongoose.Schema({
   }
 });
 
-// Creando un Modelo
+// Creando un Modelo( Coleccion )
 let Person = mongoose.model( 'Person', personSchema );
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
+
+  // Crear un documento
+  const personaUno = new Person( {
+    name : 'Jose Carlos',
+    age : 35,
+    favoriteFoods : [ 'Albondigas', 'Hamburguesas' ]
+  });
+
+  // Insertar un documento( registro )
+  personaUno.save( ( error, dato ) => {
+    if( error ){
+      console.error( 'Algo salio mal', error );
+    } else {
+      console.log( 'Dato insertado', dato );
+    }
+
+  });
+
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
