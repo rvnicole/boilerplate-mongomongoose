@@ -27,8 +27,7 @@ const personSchema = new mongoose.Schema({
 let Person = mongoose.model( 'Person', personSchema );
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
-
+  
   // Crear un documento
   const personaUno = new Person( {
     name : 'Jose Carlos',
@@ -39,8 +38,13 @@ const createAndSavePerson = (done) => {
   // Insertar un documento( registro )
   personaUno.save( ( error, dato ) => {
     if( error ){
+      
+      done( error );
       console.error( 'Algo salio mal', error );
+
     } else {
+      
+      done( null, dato );
       console.log( 'Dato insertado', dato );
     }
 
