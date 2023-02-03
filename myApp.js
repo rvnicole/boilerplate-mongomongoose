@@ -29,7 +29,8 @@ let Person = mongoose.model( 'Person', personSchema );
 const createAndSavePerson = (done) => {
   
   // Crear un documento
-  const personaUno = new Person( {
+  const personaUno = new
+   Person( {
     name : 'Jose Carlos',
     age : 35,
     favoriteFoods : [ 'Albondigas', 'Hamburguesas' ]
@@ -48,7 +49,18 @@ const createAndSavePerson = (done) => {
 };  
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+
+  // Insertar multiples documentos( registros )
+  const promesa = Person.create( arrayOfPeople );
+
+  promesa.then( ( respuesta ) => {
+    console.log( respuesta );
+  });
+
+  promesa.catch( ( error ) => {
+    console.error( 'Algo salio mal', error )
+  });
+
 };
 
 const findPeopleByName = (personName, done) => {
