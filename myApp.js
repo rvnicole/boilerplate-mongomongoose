@@ -104,7 +104,7 @@ const findOneByFood = (food, done) => {
 // Realizando una busqueda por Id
 const findPersonById = (personId, done) => {
   
-  const promesa = Person.findById( { _id : personId }, ( error, persona ) => {
+  const promesa = Person.findById( personId, ( error, persona ) => {
     if( !error ){
       done( null, persona );
     }
