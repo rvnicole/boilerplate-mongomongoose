@@ -82,8 +82,23 @@ const findPeopleByName = (personName, done) => {
 
 };
 
+// Realizando una busqueda de un solo elemento
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  
+  const promesa =  Person.findOne( { favoriteFoods : food }, ( error, persona ) => {
+      if( !error ){
+        done( null, persona );
+      }
+  });
+
+  promesa.then( ( respuesta ) => {
+    console.log( 'La cincidencia de busqueda es: ', respuesta );
+  });
+
+  promesa.catch( ( error ) => {
+    console.log( 'Algo salio mal: ', error );
+  });
+  
 };
 
 const findPersonById = (personId, done) => {
