@@ -119,10 +119,42 @@ const findPersonById = (personId, done) => {
   })
 };
 
+// Editando un documento( registro )
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
 
-  done(null /*, data*/);
+  const promesa = Person.findById( personId, ( error, registro ) => {
+    if( !error ){
+      done( null, registro );
+    }
+  });
+
+  const documento = promesa.then( ( respuesta ) => {
+    console.log( 'Registro: ', respuesta );
+
+    respuesta.favoriteFoods.push( foodToAdd );
+
+    return respuesta;
+  });
+
+  promesa.catch( ( error ) => {
+    console.error( 'Algo salio mal: ', error );
+  });
+
+  const prom = respuesta.save( ( error, dato ) => {
+    if( !error ){
+      done( null, dato );
+    } 
+  });
+
+  prom.then( ( respuesta ) => {
+    console.log( 'Registro actualizado: ', respuesta );
+  });
+
+  prom.catch( ( error ) => {
+    console.error( 'Algo salio mal: ', error );
+  });
+  
 };
 
 const findAndUpdate = (personName, done) => {
