@@ -4,75 +4,80 @@ const mySecret = process.env['MONGO_URI'];
 require('dotenv').config();
 
 // Importar mongoose
-let mongoose = require( 'mongoose' );
+let mongoose = require('mongoose');
 
 // Conectar Base de Datos
-mongoose.connect( mySecret , { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mySecret, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Creando un Esquema 
 const personSchema = new mongoose.Schema({
-  name : {
-    type : String,
-    required : true
+  name: {
+    type: String,
+    required: true
   },
-  age : {
-    type : Number    
+  age: {
+    type: Number
   },
-  favoriteFoods : {
-    type : [ String ]
+  favoriteFoods: {
+    type: [String]
   }
 });
 
 // Creando un Modelo( Coleccion )
-let Person = mongoose.model( 'Person', personSchema );
+let Person = mongoose.model('Person', personSchema);
 
 const createAndSavePerson = (done) => {
-  
+
   // Crear un documento
   const personaUno = new
-   Person( {
-    name : 'Jose Carlos',
-    age : 35,
-    favoriteFoods : [ 'Albondigas', 'Hamburguesas' ]
-  });
+    Person({
+      name: 'Jose Carlos',
+      age: 35,
+      favoriteFoods: ['Albondigas', 'Hamburguesas']
+    });
 
   // Insertar un documento( registro )
   const promesa = personaUno.save();
 
-  promesa.then( ( respuesta ) => {
-    console.log( respuesta );
+  promesa.then((respuesta) => {
+    console.log(respuesta);
   });
 
-  promesa.catch( ( error ) => {
-    console.error( 'Algo salio mal', error );
+  promesa.catch((error) => {
+    console.error('Algo salio mal', error);
   })
-};  
+};
 
 const createManyPeople = (arrayOfPeople, done) => {
 
   // Insertar multiples documentos( registros )
-  const promesa = Person.create( arrayOfPeople );
+  const promesa = Person.create(arrayOfPeople);
 
-  promesa.then( ( respuesta ) => {
-    console.log( respuesta );
+  promesa.then((respuesta) => {
+    console.log(respuesta);
   });
 
-  promesa.catch( ( error ) => {
-    console.error( 'Algo salio mal', error )
+  promesa.catch((error) => {
+    console.error('Algo salio mal', error)
   });
 
 };
 
+// Realizando una busqueda
 const findPeopleByName = (personName, done) => {
-  
-  Person.find( { name : personName }, ( error, personas ) => {
 
-    if( error ){
-      console.log( 'Algo salio mal', error );
-    } else {
-      done( null, personas );
+  const promesa = Person.find({ name: personName }, (error, personas) => {
+    if (!error) {
+      done(null, personas);
     }
+  });
 
+  promesa.then((respuesta) => {
+    console.log('Las coincidencias de busqueda son: ', respuesta);
+  });
+
+  promesa.catch((error) => {
+    console.error('Algo salio mal: ', error);
   });
 
 };
