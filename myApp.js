@@ -129,32 +129,32 @@ const findEditThenSave = (personId, done) => {
     }
   });
 
-  const documento = promesa.then( ( respuesta ) => {
+  promesa.then( ( respuesta ) => {
     console.log( 'Registro: ', respuesta );
 
     respuesta.favoriteFoods.push( foodToAdd );
 
-    return respuesta;
+    const prom = respuesta.save( ( error, dato ) => {
+      if( !error ){
+        done( null, dato );
+      } 
+    });
+
+    prom.then( ( respuesta ) => {
+      console.log( 'Registro actualizado: ', respuesta );
+    });
+
+    prom.catch( ( error ) => {
+      console.error( 'Algo salio mal: ', error );
+    });
+
   });
 
   promesa.catch( ( error ) => {
     console.error( 'Algo salio mal: ', error );
   });
 
-  const prom = documento.save( ( error, dato ) => {
-    if( !error ){
-      done( null, dato );
-    } 
-  });
-
-  prom.then( ( respuesta ) => {
-    console.log( 'Registro actualizado: ', respuesta );
-  });
-
-  prom.catch( ( error ) => {
-    console.error( 'Algo salio mal: ', error );
-  });
-
+  
 };
 
 const findAndUpdate = (personName, done) => {
