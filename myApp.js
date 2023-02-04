@@ -141,7 +141,7 @@ const findEditThenSave = (personId, done) => {
     console.error( 'Algo salio mal: ', error );
   });
 
-  const prom = respuesta.save( ( error, dato ) => {
+  const prom = documento.save( ( error, dato ) => {
     if( !error ){
       done( null, dato );
     } 
@@ -154,7 +154,7 @@ const findEditThenSave = (personId, done) => {
   prom.catch( ( error ) => {
     console.error( 'Algo salio mal: ', error );
   });
-  
+
 };
 
 const findAndUpdate = (personName, done) => {
