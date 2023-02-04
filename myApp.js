@@ -64,7 +64,17 @@ const createManyPeople = (arrayOfPeople, done) => {
 };
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  
+  Person.find( { name : personName }, ( error, personas ) => {
+
+    if( error ){
+      console.log( 'Algo salio mal', error );
+    } else {
+      done( null, personas );
+    }
+
+  });
+
 };
 
 const findOneByFood = (food, done) => {
