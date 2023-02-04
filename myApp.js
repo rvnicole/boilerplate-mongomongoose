@@ -123,11 +123,7 @@ const findPersonById = (personId, done) => {
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
 
-  const promesa = Person.findById( personId, ( error, registro ) => {
-    if( !error ){
-      done( null, registro );
-    }
-  });
+  const promesa = Person.findById( personId );
 
   promesa.then( ( respuesta ) => {
     console.log( 'Registro: ', respuesta );
