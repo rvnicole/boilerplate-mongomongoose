@@ -168,8 +168,23 @@ const findAndUpdate = (personName, done) => {
   });
 };
 
+//  Eliminar un registro usando el ID
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  
+  const promesa = Person.findByIdAndRemove( personId, ( error, dato ) => {
+    if( !error ){
+      done( null, dato );
+    }
+  });
+
+  promesa.then( ( resultado ) => {
+    console.log( 'Registro eliminado: ', resultado );
+  });
+
+  promesa.catch( ( error ) => {
+    console.log( 'Algo salio mal: ', error );
+  });
+
 };
 
 const removeManyPeople = (done) => {
