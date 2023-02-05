@@ -193,7 +193,7 @@ const removeManyPeople = (done) => {
 
   const promesa = Person.remove( { name : nameToRemove }, ( error, dato ) => {
     if( !error ){
-      done( dato );
+      done( null, dato );
     }
   });
 
