@@ -149,10 +149,23 @@ const findEditThenSave = (personId, done) => {
   
 };
 
+// Editar un registro con la propiedad
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
 
-  done(null /*, data*/);
+  const promesa = Person.findOneAndUpdate( 
+    { name : personName }, 
+    { age : ageToSet }, 
+    { new : true, runValidators : true }
+  );
+
+  promesa.then( ( resultado ) => {
+    console.log( 'Registro actualizado: ', resultado );
+  });
+
+  promesa.catch( ( error ) => {
+    console.error( 'Algo salio mal: ', error );
+  });
 };
 
 const removeById = (personId, done) => {
