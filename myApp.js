@@ -187,10 +187,23 @@ const removeById = (personId, done) => {
 
 };
 
+// Eliminar muchos registros  a la vez
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
 
-  done(null /*, data*/);
+  const promesa = Person.remove( { name : nameToRemove }, ( error, dato ) => {
+    if( !error ){
+      done( dato );
+    }
+  });
+
+  promesa.then( ( resultado ) => {
+    console.log( 'Registros eliminados: ', resultado );
+  });
+
+  promesa.catch( ( error ) => {
+    console.error( 'Algo salio mal: ', error );
+  });
 };
 
 const queryChain = (done) => {
