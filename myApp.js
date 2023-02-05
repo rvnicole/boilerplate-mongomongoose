@@ -130,11 +130,7 @@ const findEditThenSave = (personId, done) => {
 
     respuesta.favoriteFoods.push( foodToAdd );
 
-    const prom = respuesta.save( ( error, dato ) => {
-      if( !error ){
-        done( null, dato );
-      } 
-    });
+    const prom = respuesta.save();
 
     prom.then( ( respuesta ) => {
       console.log( 'Registro actualizado: ', respuesta );
