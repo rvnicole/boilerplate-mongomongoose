@@ -206,10 +206,27 @@ const removeManyPeople = (done) => {
   });
 };
 
+// Usando auxiliares de consulta
 const queryChain = (done) => {
   const foodToSearch = "burrito";
 
-  done(null /*, data*/);
+  const promesa = Person.find({ age: 55 })
+    .sort({ name: -1 })
+    .limit(5)
+    .select({ favoriteFoods: 0 })
+    .exec( (error, datos) => {
+    if( !error ){
+      done( null, datos );
+    }
+  });
+
+  promesa.then( ( resultado ) => {
+    console.log( 'Registros: ', resultado );
+  });
+
+  promesa.catch( ( error ) => {
+    console.error( 'Algo salio mal: ', error );
+  });
 };
 
 /** **Well Done !!**
